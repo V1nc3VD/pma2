@@ -6,8 +6,7 @@
                 <th scope="col">Les</th>
                 <th scope="col">Cursus</th>
                 <th scope="col">Mijn progressie</th>
-                <th scope="col">Opdracht planning</th>
-                <th scope="col">Status</th>
+                <th scope="col">Datum</th>
             </tr>
         </thead>
         <tbody>
@@ -18,9 +17,8 @@
                     <div class="dropdown show">
                         <a class="dropdown-toggle opdrachten" href="#" role="button" id="dropdownMenuLink"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            2.1
+                            2.1 / 2.0
                         </a>
-
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="#">
                                 1.9
@@ -43,25 +41,33 @@
                         </div>
                     </div>
                 </td>
-                <td>2.0</td>
-                <td>Op schema</td>
+                <td>Donderdag 25/3</td>
             </tr>
             <tr>
                 <td>Project</td>
                 <td>agile cursus</td>
-
                 <td>1.1</td>
-                <td>2.0</td>
                 <td>Achter op schema</td>
             </tr>
             <tr>
                 <td>PRG</td>
                 <td>PRG-basics</td>
                 <td>3</td>
-                <td>2.0</td>
                 <td>Voor op schema</td>
             </tr>
+            @foreach ($opdrachten as $opdracht)
+            <tr>
+                <td>PRG</td>
+                <td>PRG-basics</td>
+                <td>{{ $opdracht->Opdracht }}</td>
+                <td>Voor op schema</td>
+            </tr>
+    
+    
+        @endforeach
         </tbody>
     </table>
+
+
 
 @endsection

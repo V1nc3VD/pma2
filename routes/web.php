@@ -1,6 +1,8 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProgressieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,4 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/',[ProgressieController::class,'index']);
