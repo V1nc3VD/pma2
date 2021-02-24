@@ -15,6 +15,5 @@ class ProgressieController extends Controller
         $opdrachten = DB::table('opdrachten')->get();
         return view('home', ['opdrachten' => $opdrachten]);
 
-
     }
 }
