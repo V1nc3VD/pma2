@@ -9,11 +9,27 @@ class ProgressieController extends Controller
 {
     function index()
     {
-        $cursussen = DB::table('opdrachten')->get();
+        $klas="AM2A";
+        $klascursussen = DB::table('klasregel')
+        ->where('Klas', 'AM2A')
+        ->get();
 
 
-        $opdrachten = DB::table('opdrachten')->get();
-        return view('home', ['opdrachten' => $opdrachten]);
+
+     
+    //subquery?
+        $opdrachten = DB::table('opdrachten')
+           ->whereExists(function ($query) {
+               $query->select('CursusNaam')
+                     ->from('klasregel')
+                     ->where('klasregel.Klas', 'AM2A');
+           })
+           ->get();
+           return view('home', 
+           ['opdrachten' => $opdrachten],
+           ['klascursussen' => $klascursussen]
+       );
+           
 
     }
 }
