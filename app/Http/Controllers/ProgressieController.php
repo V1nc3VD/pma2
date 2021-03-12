@@ -9,27 +9,21 @@ class ProgressieController extends Controller
 {
     function index()
     {
-        $klas="AM2A";
+
         $klascursussen = DB::table('klasregel')
-        ->where('Klas', 'AM2A')
-        ->get();
+            ->where('Klas', 'AM2A')
+            ->get();
 
+        $opdrachten =  DB::table('cursus')
+            //->crossJoin('opdrachten')
+            ->join('opdrachten', 'opdrachten.CursusNaam', '=', 'opdrachten.CursusNaam')
+            ->select('cursus.*', 'opdrachten.Opdracht')
+            ->get();         
 
-
-     
-    //subquery?
-        $opdrachten = DB::table('opdrachten')
-           ->whereExists(function ($query) {
-               $query->select('CursusNaam')
-                     ->from('klasregel')
-                     ->where('klasregel.Klas', 'AM2A');
-           })
-           ->get();
-           return view('home', 
-           ['opdrachten' => $opdrachten],
-           ['klascursussen' => $klascursussen]
-       );
-           
-
+        return view(
+            'home',
+            ['opdrachten' => $opdrachten],
+            ['klascursussen' => $klascursussen]
+        );
     }
 }
