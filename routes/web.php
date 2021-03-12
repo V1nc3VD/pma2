@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgressieController;
+use App\Http\Controllers\CursusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,7 @@ Route::get('/', function () {
     return view('home');
 });
 
+
+Route::resource('/', 'App\Http\Controllers\ProgressieController');
 Route::get('/',[ProgressieController::class,'index']);
+Route::get('cursus',[CursusController::class,'index']);
