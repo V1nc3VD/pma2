@@ -13,7 +13,7 @@
         <tbody>
             <tr>
 
-            @foreach ($klascursussen as $cursus)
+           {{-- @foreach ($klascursussen as $cursus)
                 <tr>
                     <td>d</td>
                     <td>{{ $cursus->CursusNaam }}</td>
@@ -22,8 +22,19 @@
                             {{ $opdracht->Opdracht }} 
                         @endforeach
                     </td>
-                </tr>
+                </tr> --}}
 
+            @foreach ($cursussen as $cursus)
+            <tr>
+                <td>d</td>
+                <td>{{$cursus->CursusNaam}} </td>
+                <td>  
+                    @foreach($cursus->getOpdracht as $opdracht)
+                    <li> {{ $opdracht->Opdracht }}</li>
+                  @endforeach
+                </td>
+            </tr>
+                
 
             @endforeach
         </tbody>

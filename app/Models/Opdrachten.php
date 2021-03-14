@@ -12,4 +12,9 @@ class Opdrachten extends Model
     protected $table = 'opdrachten';
     protected $primaryKey = 'OpdrachtID';
     use HasFactory;
+    public function cursus()
+    {
+        return $this->belongsTo('App\Models\Cursus');
+  
+    }
 }
