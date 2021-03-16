@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cursus;
 use App\Models\Opdrachten;
+use App\Models\OpdrachtVoortgang;
 
 class CursusController extends Controller
 {
     function index()
     {
         $ee = "ASPAdvanced";
-        $opdrachten = Cursus::find($ee)->getOpdracht;
         $cursussen = Cursus::all();
-        $opdracht = Cursus::find("ASPAdvanced")->Opdracht;
-        return view('home',compact('cursussen'));
+        $opdrachtvoortgang = OpdrachtVoortgang::find(1)->IsKlaar;
+        return view('home',compact('cursussen', 'opdrachtvoortgang'));
 
 
     }

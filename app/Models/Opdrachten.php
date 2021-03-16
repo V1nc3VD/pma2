@@ -15,6 +15,10 @@ class Opdrachten extends Model
     public function cursus()
     {
         return $this->belongsTo('App\Models\Cursus');
-  
+        
+    }
+    public function opdrachtVoortgang() {
+        return $this->hasOne('App\Models\OpdrachtVoortgang', 'OpdrachtID', 'OpdrachtID')
+        ->where('LeerlingID', 1);
     }
 }

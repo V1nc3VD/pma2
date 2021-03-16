@@ -11,31 +11,38 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
 
-           {{-- @foreach ($klascursussen as $cursus)
-                <tr>
-                    <td>d</td>
-                    <td>{{ $cursus->CursusNaam }}</td>
-                    <td>
-                        @foreach ($opdrachten as $opdracht)
-                            {{ $opdracht->Opdracht }} 
-                        @endforeach
-                    </td>
-                </tr> --}}
 
             @foreach ($cursussen as $cursus)
-            <tr>
-                <td>d</td>
-                <td>{{$cursus->CursusNaam}} </td>
-                <td>  
-                    @foreach($cursus->getOpdracht as $opdracht)
-                    <li> {{ $opdracht->Opdracht }}</li>
-                  @endforeach
-                </td>
-            </tr>
-                
+                <tr>
 
+                    <td></td>
+                    <td>{{ $cursus->CursusNaam }} </td>
+                    <td>
+
+
+                        <div class="dropdown">
+                            <a class="dropdown-toggle opdrachten" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Opdrachten
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                    @foreach ($cursus->getOpdracht as $opdracht)
+                                    
+                                        <a class="dropdown-item" href="#">{{$opdracht->Opdracht}} {{ $opdracht->opdrachtVoortgang}} 
+                                            <img   src="/img/icons/check.svg" alt=""></a>
+                                    @endforeach
+
+                                   {{-- @foreach ($cursus->getVoortgang as $voortgang)
+                                         {{ $voortgang }} <img
+                                                src="/img/icons/check.svg" alt="">
+                                    @endforeach --}}
+                                </div>
+                        </div>
+
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>

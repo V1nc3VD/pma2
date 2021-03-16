@@ -15,4 +15,10 @@ class Cursus extends Model
     {
         return $this->hasMany('App\Models\Opdrachten', 'CursusNaam');
     }
+    function getVoortgang()
+    {
+        return $this->hasManyThrough('App\Models\OpdrachtVoortgang', 'App\Models\Opdrachten', 'CursusNaam', 'OpdrachtID', 'CursusNaam', 'OpdrachtID' )
+        ->where('LeerlingID', 1);
+    }
+
 }
