@@ -21,6 +21,6 @@ Route::get('/', function () {
 });
 
 
-Route::resource('/', 'App\Http\Controllers\ProgressieController');
+
 Route::get('/',[ProgressieController::class,'index']);
 Route::get('cursus',[CursusController::class,'index']);

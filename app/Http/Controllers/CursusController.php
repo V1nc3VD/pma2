@@ -11,12 +11,23 @@ class CursusController extends Controller
 {
     function index()
     {
+        $date = date("Y/m/d");
         $ee = "ASPAdvanced";
         $cursussen = Cursus::all();
-        $opdrachtvoortgang = OpdrachtVoortgang::find(1)->IsKlaar;
-        return view('home',compact('cursussen', 'opdrachtvoortgang'));
+        $dd = 1;
+
+       
+        
+        return view('home',compact('cursussen')
+    
+    );
 
 
+    }
+
+    public function voortgang($opdracht)
+     {
+        return "d";
     }
 
 }

@@ -12,7 +12,6 @@
         </thead>
         <tbody>
 
-
             @foreach ($cursussen as $cursus)
                 <tr>
 
@@ -29,9 +28,12 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                     @foreach ($cursus->getOpdracht as $opdracht)
-                                    
-                                        <a class="dropdown-item" href="#">{{$opdracht->Opdracht}} {{ $opdracht->opdrachtVoortgang}} 
-                                            <img   src="/img/icons/check.svg" alt=""></a>
+                                        <a class="dropdown-item" href="#">{{$opdracht->Opdracht}} 
+                                            @if(isset($opdracht->opdrachtVoortgang->IsKlaar) && $opdracht->opdrachtVoortgang->IsKlaar==1  )
+                                            <img   src="/img/icons/check.svg" alt="af">
+                                            @endif
+                                            
+                                        </a>
                                     @endforeach
 
                                    {{-- @foreach ($cursus->getVoortgang as $voortgang)
