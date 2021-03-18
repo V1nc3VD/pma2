@@ -13,12 +13,19 @@ class Cursus extends Model
     use HasFactory;
     function getOpdracht()
     {
-        return $this->hasMany('App\Models\Opdrachten', 'CursusNaam');
+        return $this->hasMany('App\Models\Opdrachten', 'CursusNaam')->orderBy('OpdrachtID', 'desc');
     }
-    function getVoortgang()
+
+    function getAankomendeOpdracht()
     {
-        return $this->hasManyThrough('App\Models\OpdrachtVoortgang', 'App\Models\Opdrachten', 'CursusNaam', 'OpdrachtID', 'CursusNaam', 'OpdrachtID' )
-        ->where('LeerlingID', 1);
+        $date = date('Y-m-d H:i:s');
+        return $this->hasMany('App\Models\Opdrachten', 'CursusNaam')
+        ->whereNotNull('Deadline')
+        ->firstwhere('Deadline', '>', $date);
     }
+
+
+  
+
 
 }

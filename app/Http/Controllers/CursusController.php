@@ -16,18 +16,13 @@ class CursusController extends Controller
         $cursussen = Cursus::all();
         $dd = 1;
 
-       
-        
-        return view('home',compact('cursussen')
-    
-    );
-
-
+        return view('home')
+            ->with(compact('cursussen'))
+            ->with('date', $date);
     }
 
     public function voortgang($opdracht)
-     {
+    {
         return "d";
     }
-
 }
