@@ -12,17 +12,11 @@ class CursusController extends Controller
     function index()
     {
         $date = date("Y/m/d");
-        $ee = "ASPAdvanced";
-        $cursussen = Cursus::all();
-        $dd = 1;
+        //get course
+        $cursussen = Cursus::get();
 
         return view('home')
             ->with(compact('cursussen'))
             ->with('date', $date);
-    }
-
-    public function voortgang($opdracht)
-    {
-        return "d";
     }
 }

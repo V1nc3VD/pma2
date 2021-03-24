@@ -15,10 +15,20 @@ class Opdrachten extends Model
     public function cursus()
     {
         return $this->belongsTo('App\Models\Cursus');
-        
     }
-    public function opdrachtVoortgang() {
+    //get the progress of the exercises of a student (right now it's only student with id 1)
+    public function opdrachtVoortgang()
+    {
         return $this->hasOne('App\Models\OpdrachtVoortgang', 'OpdrachtID', 'OpdrachtID')
-        ->where('LeerlingID', 1);
+            ->where('LeerlingID', 1);
+    }
+
+    public function opdrachtLaatstAfgemaakt()
+    {
+        return $this->hasOne('App\Models\OpdrachtVoortgang', 'OpdrachtID', 'OpdrachtID')
+        ->where('LeerlingID', '1')
+        ->where('isKlaar', '1')
+        ->orderByDesc('OpdrachtVoortGangID')
+        ->first();
     }
 }
