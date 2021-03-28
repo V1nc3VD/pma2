@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cursus extends Model
+class Cursus extends Model //Course model
 {
     protected $keyType = 'string';
     protected $table = 'cursus';
@@ -16,15 +16,17 @@ class Cursus extends Model
     {
         return $this->hasMany('App\Models\Opdrachten', 'CursusNaam');
     }
+
+
     function getVoortgang()
     {
-        return $this->hasManyThrough('App\Models\OpdrachtVoortgang', 'App\Models\Opdrachten', 'CursusNaam', 'OpdrachtVoortGangID')
-            ->select('OpdrachtVoortGangID')
-            ->where('LeerlingID', '1')
-            ->where('isKlaar', '1')
-            ->orderByDesc('OpdrachtVoortGangID')
+        return $this->hasManyThrough('App\Models\OpdrachtVoortgang', 'App\Models\Opdrachten', 'CursusNaam', 'OpdrachtVoortGangID', 'CursusNaam', 'OpdrachtID')
 
-            ->first();
+            ->where('IsKlaar', 1) //only exercises that are finished
+            ->whereNotNull('IsKlaar' )
+            ->orderByDesc('OpdrachtID')
+            ->get();
+            //get instead of first to show that that the progress row got displayed next to the wrong course.
     }
 
 
@@ -37,19 +39,5 @@ class Cursus extends Model
             ->whereNotNull('Deadline')
             ->firstwhere('Deadline', '>', $date);
     }
-    function getLaatstAfgemaakt()
-    {
-        return $this->getOpdracht()
-            ->where('OpdrachtID', '=', function ($query) {
-                $query
-                    ->select('OpdrachtID')
-                    ->from('opdrachtvoortgang')
-                    ->where('opdrachtvoortgang.OpdrachtVoortGangID', '1')
-                    ->where('opdrachtvoortgang.isKlaar', '1')
-                    ->orderByDesc('opdrachtvoortgang.OpdrachtVoortgangID')
-                    ->limit(1);
-            })->first();
-        }
-
 }
 

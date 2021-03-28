@@ -11,8 +11,10 @@
             </tr>
         </thead>
         <tbody>
-
+           
             @foreach ($cursussen as $cursus)    
+
+            
             <tr>
                 <td>
                     {{-- get the lesson the course belongs to--}}
@@ -25,7 +27,7 @@
                         <a class="dropdown-toggle opdrachten" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             
-                            {{ $cursus->getVoortgang()->OpdrachtVoortGangID }}
+                            {{$cursus->getOpdracht->where('opdrachtvoortgang.IsKlaar', '1')->sortByDesc('OpdrachtID')->first()->opdrachtVoortgang}}
                             {{-- This must show the last finished exercise--}}
                             
                                                         /
@@ -36,7 +38,10 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                            
                             @foreach ($cursus->getOpdracht as $opdracht)
-                                <a class="dropdown-item" href="#">{{ $opdracht->Opdracht }}
+                                <a class="dropdown-item" href="#">
+                                    {{ $opdracht->Opdracht }}
+                    
+                                    ID{{$opdracht->OpdrachtID}}
                                     {{-- Put check next to exercise in dropdown if it's finished (isKlaar = 1)--}}
                                     @if (isset($opdracht->opdrachtVoortgang->IsKlaar) && $opdracht->opdrachtVoortgang->IsKlaar == 1)
                                         <img src="/img/icons/check.svg" alt="af">

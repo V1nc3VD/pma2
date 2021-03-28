@@ -15,8 +15,7 @@ class CursusController extends Controller
         //get course
         $cursussen = Cursus::get();
 
-        return view('home')
-            ->with(compact('cursussen'))
-            ->with('date', $date);
-    }
+
+        return view('home',compact('cursussen'));
+}
 }
