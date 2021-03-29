@@ -25,10 +25,8 @@ class Opdrachten extends Model
 
     public function opdrachtLaatstAfgemaakt()
     {
-        return $this->hasOne('App\Models\OpdrachtVoortgang', 'OpdrachtID', 'OpdrachtID')
-        ->where('LeerlingID', '1')
-        ->where('isKlaar', '1')
-        ->orderByDesc('OpdrachtVoortGangID')
-        ->first();
+        return $this->opdrachtVoortgang()
+        ->where('opdrachtvoortgang.IsKlaar', '1')->sortByDesc('OpdrachtID')->first();
     }
+    
 }
