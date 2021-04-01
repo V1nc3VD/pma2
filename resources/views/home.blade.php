@@ -13,14 +13,14 @@
         <tbody>
 
             @foreach ($cursussen as $cursus)
-                <tr class="
-                @if (isset($cursus->getAankomendeOpdracht()->Opdracht) &&
-                    $cursus->getAankomendeOpdracht()->Opdracht < $cursus->getOpdracht
+            {{--Tablerow class verandert naar "af" wanneer het op schema is --}}
+            @if (isset($cursus->getAankomendeOpdracht()->Opdracht) &&
+                    $cursus->getAankomendeOpdracht()->Opdracht <= $cursus->getOpdracht
                         ->where('opdrachtvoortgang.IsKlaar', '1')
                         ->sortByDesc('OpdrachtID')
-                        ->first()->Opdracht) 
-                        af @endif"
-                        >
+                        ->first()->Opdracht) @endif    
+            <tr class="
+                ">
                         <td>
                             {{-- get the lesson the course belongs to --}}
                             {{ $cursus->VakAfkorting }}
@@ -32,13 +32,10 @@
                                 <a class="dropdown-toggle opdrachten" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                    {{ $laatsteopdracht = $cursus->getOpdracht->where('opdrachtvoortgang.IsKlaar', '1')->sortByDesc('OpdrachtID')->first()->Opdracht }}
-
-                                    {{-- This must show the last finished exercise --}}
-
+                                    {{ $cursus->getLaatsteOpdracht()->Opdracht }}
                                     /
                                     {{-- Displays exercise (opdracht) with nearest deadline --}}
-                                    {{ $cursus->getAankomendeOpdracht()->Opdracht ?? $laatsteopdracht }}
+                                    {{ $cursus->getAankomendeOpdracht()->Opdracht ?? " " }}
 
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

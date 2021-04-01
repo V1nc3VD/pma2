@@ -16,7 +16,16 @@ class Cursus extends Model //Course model
     {
         return $this->hasMany('App\Models\Opdrachten', 'CursusNaam');
     }
- 
+    
+    function getLaatsteOpdracht()
+    {
+        return $this->getOpdracht()
+        ->join('opdrachtvoortgang', 'opdrachten.OpdrachtID', '=', 'opdrachtvoortgang.OpdrachtID')
+        ->where('opdrachtvoortgang.IsKlaar', '1')
+        ->where('opdrachtvoortgang.LeerlingID', '1')
+        ->orderByDesc('opdrachtvoortgangID')
+        ->first();
+    }
 
     function getVoortgang()
     {
@@ -29,10 +38,6 @@ class Cursus extends Model //Course model
             //get instead of first to show that that the progress row got displayed next to the wrong course.
     }
 
-    function getLastFinished()
-    {
-        return $this->getOpdracht()->where('opdrachtvoortgang.IsKlaar', '1')->sortByDesc('OpdrachtID')->first()->opdrachtVoortgang;
-    }
 
 
     //get exercise of course with the nearest deadline
