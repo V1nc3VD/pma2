@@ -17,7 +17,7 @@ class Cursus extends Model //Course model
         return $this->hasMany('App\Models\Opdrachten', 'CursusNaam');
     }
     
-    function getLaatsteOpdracht()
+    function getOpdrachtLaatstAfgemaakt()
     {
         return $this->getOpdracht()
         ->join('opdrachtvoortgang', 'opdrachten.OpdrachtID', '=', 'opdrachtvoortgang.OpdrachtID')
@@ -27,26 +27,25 @@ class Cursus extends Model //Course model
         ->first();
     }
 
-    function getVoortgang()
-    {
-        return $this->hasManyThrough('App\Models\OpdrachtVoortgang', 'App\Models\Opdrachten', 'CursusNaam', 'OpdrachtVoortGangID', 'CursusNaam', 'OpdrachtID')
-
-            ->where('IsKlaar', 1) //only exercises that are finished
-            ->whereNotNull('IsKlaar' )
-            ->orderByDesc('OpdrachtID')
-            ->get();
-            //get instead of first to show that that the progress row got displayed next to the wrong course.
-    }
-
-
-
     //get exercise of course with the nearest deadline
     function getAankomendeOpdracht()
     {
         $date = date('Y-m-d H:i:s');
-        return $this->hasMany('App\Models\Opdrachten', 'CursusNaam')
+        return $this->getOpdracht()
             ->whereNotNull('Deadline')
             ->firstwhere('Deadline', '>', $date);
+    }
+
+    function compareResults(){
+        if (isset($this->getOpdrachtLaatstAfgemaakt()->Opdracht) && isset($this->getAankomendeOpdracht()->Opdracht))
+        {
+            if ($this->getOpdrachtLaatstAfgemaakt()->Opdracht >= $this->getAankomendeOpdracht()->Opdracht)
+            {
+                return "af";
+            }
+            
+        }
+
     }
 }
 

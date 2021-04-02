@@ -12,11 +12,10 @@ class CursusController extends Controller
     function index()
     {
         $date = date("Y/m/d");
+        
         //get course
         $cursussen = Cursus::get();
         return view('home')
-        ->with('cursussen', $cursussen)
-        ;
-    
+        ->with('cursussen', $cursussen);    
     }
 }

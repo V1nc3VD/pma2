@@ -23,4 +23,4 @@ Route::get('/', function () {
 
 
 Route::get('/',[ProgressieController::class,'index']);
-Route::get('cursus',[CursusController::class,'index']);
+Route::get('huiswerk',[CursusController::class,'index']);

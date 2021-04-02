@@ -14,13 +14,9 @@
 
             @foreach ($cursussen as $cursus)
             {{--Tablerow class verandert naar "af" wanneer het op schema is --}}
-            @if (isset($cursus->getAankomendeOpdracht()->Opdracht) &&
-                    $cursus->getAankomendeOpdracht()->Opdracht <= $cursus->getOpdracht
-                        ->where('opdrachtvoortgang.IsKlaar', '1')
-                        ->sortByDesc('OpdrachtID')
-                        ->first()->Opdracht) @endif    
-            <tr class="
-                ">
+           
+                 
+            <tr class="{{$cursus->compareResults()}}">
                         <td>
                             {{-- get the lesson the course belongs to --}}
                             {{ $cursus->VakAfkorting }}
@@ -32,10 +28,10 @@
                                 <a class="dropdown-toggle opdrachten" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                    {{ $cursus->getLaatsteOpdracht()->Opdracht }}
+                                    {{ $cursus->getOpdrachtLaatstAfgemaakt()->Opdracht }}
                                     /
                                     {{-- Displays exercise (opdracht) with nearest deadline --}}
-                                    {{ $cursus->getAankomendeOpdracht()->Opdracht ?? " " }}
+                                    {{ $cursus->getAankomendeOpdracht()->Opdracht ??  $cursus->getOpdrachtLaatstAfgemaakt()->Opdracht }}
 
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -59,7 +55,7 @@
                             </div>
                         </td>
                         <td>
-                            {{ $cursus->getAankomendeOpdracht()->Deadline ?? 'No deadline' }}
+                            {{ $cursus->getAankomendeOpdracht()->Deadline ?? 'Voltooid' }}
                         </td>
                 </tr>
             @endforeach
