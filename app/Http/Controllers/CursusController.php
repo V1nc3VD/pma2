@@ -17,7 +17,7 @@ class CursusController extends Controller
         $cursussen = Cursus::select('cursus.*')->with('getOpdracht')->groupBy('cursus.CursusNaam')->get();
 
         $cursussen = Cursus::with(['getOpdracht'])->select('cursus.*')
-            ->join('opdrachten', 'opdrachten.CursusNaam', '=', 'cursus.CursusNaam')
+
             ->groupBy('CursusNaam')
             ->get()
             ->sortBy(function ($cursussen) {
