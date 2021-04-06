@@ -11,12 +11,14 @@ class Cursus extends Model //Course model
     protected $table = 'cursus';
     protected $primaryKey = 'CursusNaam';
     use HasFactory;
-    //get the exercises belonging to the course
+
+    //get the exercises belonging to the course    
     function getOpdracht()
     {
         return $this->hasMany('App\Models\Opdrachten', 'CursusNaam');
     }
     
+    //get the last finished exercise of the student per course
     function getOpdrachtLaatstAfgemaakt()
     {
         return $this->getOpdracht()
@@ -35,8 +37,9 @@ class Cursus extends Model //Course model
             ->whereNotNull('Deadline')
             ->firstwhere('Deadline', '>', $date);
     }
-
-    function compareResults(){
+    
+    //check if the student has finished the exercise with the nearest deadline
+    function checkOpSchema(){
         if (isset($this->getOpdrachtLaatstAfgemaakt()->Opdracht) && isset($this->getAankomendeOpdracht()->Opdracht))
         {
             if ($this->getOpdrachtLaatstAfgemaakt()->Opdracht >= $this->getAankomendeOpdracht()->Opdracht)

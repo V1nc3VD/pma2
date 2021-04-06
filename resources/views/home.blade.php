@@ -14,9 +14,9 @@
 
             @foreach ($cursussen as $cursus)
             {{--Tablerow class verandert naar "af" wanneer het op schema is --}}
-           
+
                  
-            <tr class="{{$cursus->compareResults()}}">
+            <tr class="{{$cursus->checkOpSchema()}}">
                         <td>
                             {{-- get the lesson the course belongs to --}}
                             {{ $cursus->VakAfkorting }}
@@ -46,16 +46,11 @@
 
                                         </a>
                                     @endforeach
-
-                                    {{-- @foreach ($cursus->getVoortgang as $voortgang)
-                                         {{ $voortgang }} <img
-                                                src="/img/icons/check.svg" alt="">
-                                    @endforeach --}}
                                 </div>
                             </div>
                         </td>
                         <td>
-                            {{ $cursus->getAankomendeOpdracht()->Deadline ?? 'Voltooid' }}
+                            {{ $cursus->getAankomendeOpdracht()->Deadline ?? 'Geen nieuwe deadline' }}
                         </td>
                 </tr>
             @endforeach
