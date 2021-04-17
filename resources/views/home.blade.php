@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <table class="table">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Les</th>
+                <th scope="col">Vak</th>
                 <th scope="col">Cursus</th>
-                <th scope="col">Mijn progressie</th>
+                <th scope="col">Progressie / Aankomende </th>
                 <th scope="col">Datum aankomende opdracht</th>
             </tr>
         </thead>
@@ -28,10 +29,10 @@
                                 <a class="dropdown-toggle opdrachten" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                    {{ $cursus->getOpdrachtLaatstAfgemaakt()->Opdracht }}
+                                    {{ $cursus->getOpdrachtLaatstAfgemaakt()->Opdracht ?? 0}}
                                     /
                                     {{-- Displays exercise (opdracht) with nearest deadline --}}
-                                    {{ $cursus->getAankomendeOpdracht()->Opdracht ??  $cursus->getOpdrachtLaatstAfgemaakt()->Opdracht }}
+                                    {{ $cursus->getAankomendeOpdracht()->Opdracht ??  $cursus->getOpdrachtLaatstAfgemaakt()->Opdracht ?? '' }}
 
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -56,7 +57,7 @@
             @endforeach
         </tbody>
     </table>
-
+</div>
 
 
 @endsection

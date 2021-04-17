@@ -22,5 +22,9 @@ Route::get('/', function () {
 
 
 
-Route::get('/',[ProgressieController::class,'index']);
+Route::get('/',[CursusController::class,'index']);
 Route::get('huiswerk',[CursusController::class,'index']);
+Route::get('/cursus/{cursus}',[CursusController::class,'showCursus']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\CursusController::class, 'index'])->name('home');
