@@ -25,7 +25,7 @@
                         {{-- coursename --}}
                         <td>{{ $cursus->CursusNaam }} </td>
                         <td>
-                            <div class="dropdown">
+                        <div class="dropdown">
                                 <a class="dropdown-toggle opdrachten" type="button" id="dropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
